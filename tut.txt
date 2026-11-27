@@ -1,0 +1,7 @@
+uvicorn main:app --reload
+
+python flask/app.py
+
+ruff check main.py database.py models.py schemas.py flask/app.py tests/test.py
+
+python -m pytest tests/test.py -v

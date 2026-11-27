@@ -1,0 +1,25 @@
+
+{% extends "base.html" %}
+
+{% block title %}{{ category }} | PerkVault{% endblock %}
+
+{% block content %}
+<section class="coming-soon">
+    <p class="eyebrow">THE ENTITY'S ARCHIVE</p>
+
+    <h1>{{ category }}</h1>
+
+    <div class="coming-soon-divider"></div>
+
+    <h2>COMING SOON</h2>
+
+    <p>
+        This section of the archive is still being documented.
+        Check back later as the collection expands.
+    </p>
+
+    <a href="{{ url_for('index') }}" class="button">
+        EXPLORE SURVIVOR PERKS
+    </a>
+</section>
+{% endblock %}

@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}PerkVault{% endblock %}</title>
+
+    <!-- Auric Cells Favicon -->
+    <link rel="icon" type="image/png"
+          href="{{ url_for('static', filename='images/auric_cells.png') }}">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header class="site-header">
+        <a class="logo" href="{{ url_for('home') }}">
+            <img
+                src="{{ url_for('static', filename='images/dbd-logo.png') }}"
+                alt="Dead by Daylight Logo"
+            >
+            <span class="logo-title">DBD Project</span>
+            <small>DEAD BY DAYLIGHT ARCHIVE</small>
+        </a>
+    </header>
+
+    <nav class="main-nav">
+        <a href="{{ url_for('home') }}">HOME</a>
+
+        <div class="nav-dropdown">
+            <a href="{{ url_for('index') }}">PERKS ▾</a>
+            <div class="dropdown-content">
+                <a href="{{ url_for('index') }}">SURVIVOR PERKS</a>
+                <a href="{{ url_for('killer_perks') }}">KILLER PERKS</a>
+            </div>
+        </div>
+
+        <a href="{{ url_for('maps') }}">MAPS</a>
+
+        <div class="nav-dropdown">
+            <a href="{{ url_for('items') }}">ITEMS ▾</a>
+            <div class="dropdown-content">
+                <a href="{{ url_for('items') }}">ITEMS</a>
+                <a href="{{ url_for('addons') }}">ADD-ONS</a>
+                <a href="{{ url_for('offerings') }}">OFFERINGS</a>
+            </div>
+        </div>
+
+        <a href="{{ url_for('events') }}">EVENTS</a>
+
+        <a href="{{ url_for('create_perk') }}" class="nav-button">
+            + ADD PERK
+        </a>
+    </nav>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        PERKVAULT &bull; DEAD BY DAYLIGHT ARCHIVE
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,73 @@
+
+{% extends "base.html" %}
+
+{% block title %}
+    {% if perk %}Edit Perk{% else %}Add Perk{% endif %} | PerkVault
+{% endblock %}
+
+{% block content %}
+
+<a class="back-link" href="{{ url_for('index') }}">
+    ← BACK TO COLLECTION
+</a>
+
+<section class="form-card">
+
+    <p class="eyebrow">SURVIVOR ARCHIVE</p>
+
+    <h1>
+        {% if perk %}
+            EDIT PERK
+        {% else %}
+            ADD NEW PERK
+        {% endif %}
+    </h1>
+
+    <form method="POST">
+
+        <label for="name">Perk Name</label>
+        <input
+            type="text"
+            id="name"
+            name="name"
+            value="{{ perk.name if perk else '' }}"
+            required
+        >
+
+        <label for="character">Survivor Character</label>
+        <input
+            type="text"
+            id="character"
+            name="character"
+            value="{{ perk.character if perk else '' }}"
+        >
+
+        <label for="description">Description</label>
+        <textarea
+            id="description"
+            name="description"
+            rows="6"
+        >{{ perk.description if perk else '' }}</textarea>
+
+        <label for="icon">Icon URL or Path (Optional)</label>
+        <input
+            type="text"
+            id="icon"
+            name="icon"
+            placeholder="/static/icons/lithe.png"
+            value="{{ perk.icon if perk and perk.icon else '' }}"
+        >
+
+        <button class="button submit-button" type="submit">
+            {% if perk %}
+                SAVE CHANGES
+            {% else %}
+                CREATE PERK
+            {% endif %}
+        </button>
+
+    </form>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,77 @@
+
+{% extends "base.html" %}
+
+{% block title %}Perk Collection{% endblock %}
+{% block content %}
+
+<section class="page-heading">
+    <p class="eyebrow">THE SURVIVOR ARCHIVE</p>
+    <h1>PERK COLLECTION</h1>
+    <p>Browse the available survivor perks in the Entity's realm.</p>
+</section>
+
+<div class="search-container">
+    <input
+        type="text"
+        id="perkSearch"
+        placeholder="Search perks or survivors..."
+        onkeyup="searchPerks()"
+    >
+</div>
+
+<div class="collection-header">
+    <h2>ALL SURVIVOR PERKS</h2>
+    <span>{{ perks|length }} PERKS</span>
+</div>
+
+<div class="perk-grid">
+    {% for perk in perks %}
+        <a class="perk-card"
+           href="{{ url_for('details', perk_id=perk.id) }}"
+           data-search="{{ perk.name }} {{ perk.character or '' }}">
+
+            <div class="perk-icon">
+                {% if perk.icon %}
+                    <img src="{{ perk.icon }}" alt="{{ perk.name }} icon">
+                {% else %}
+                    <span>✦</span>
+                {% endif %}
+            </div>
+
+            <h3>{{ perk.name }}</h3>
+            <p>{{ perk.character or "Unknown Survivor" }}</p>
+
+            <span class="view-link">VIEW DETAILS →</span>
+        </a>
+    {% else %}
+        <p>No perks found in the database.</p>
+    {% endfor %}
+</div>
+
+<p id="noResults" style="display: none;">
+    No matching perks found.
+</p>
+
+<script>
+    function searchPerks() {
+        const searchValue = document.getElementById("perkSearch").value.toLowerCase();
+        const perkCards = document.querySelectorAll(".perk-card");
+        let visibleCount = 0;
+
+        perkCards.forEach(card => {
+            const perkInfo = card.dataset.search.toLowerCase();
+
+            if (perkInfo.includes(searchValue)) {
+                card.style.display = "";
+                visibleCount++;
+            } else {
+                card.style.display = "none";
+            }
+        });
+
+        document.getElementById("noResults").style.display =
+            visibleCount === 0 ? "block" : "none";
+    }
+</script>
+
+{% endblock %}
